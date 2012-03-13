@@ -20,6 +20,9 @@ SampleApp::Application.routes.draw do
   match '/about',   to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
 
+  get '/add_company', :to => 'static_pages#add_company_to_homepage', :as => 'homepage_add_company'
+  #match 'add_company'  => 'static_pages#add_company_to_homepage', :via => :post, :as => 'homepage_add_company'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -1,0 +1,24 @@
+= form_for(@micropost) do |f|
+  = render 'shared/error_messages', object: f.object
+  .buttons
+    .btn
+      = link_to 'Click here to add a company',companies_path
+    %br
+    %br
+    .companies
+      - @companies_to_post_to.each do |c|
+        .btn.company{'data-company-id' => c.id}
+          #{c.name}
+          =link_to ''
+    -#.company Company3
+    -#.company Company4
+    -#.comment
+    -#  You haven't added any companies you've worked with. Click below to get started
+    %br
+    -#.company.btn Company1
+
+  %br
+  .field
+    = f.text_area :content, placeholder: "Compose new micropost..."
+  .hidden
+  = f.submit "Post", class: "btn btn-large btn-primary"
