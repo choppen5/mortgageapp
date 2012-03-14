@@ -4,6 +4,7 @@ class StaticPagesController < ApplicationController
     if signed_in?
       @micropost  = current_user.microposts.build
       @feed_items = current_user.feed.paginate(:page => params[:page])
+      @companies_to_post_to ||= []
       @companies_to_post_to = session[:company_ids].map{|c| Company.find(c)}
     end
   end
