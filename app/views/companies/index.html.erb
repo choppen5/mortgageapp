@@ -1,12 +1,3 @@
-<%-
-  Struct.new('MockCompanies',:name,:handle)
-  companies = [
-    Struct::MockCompanies.new('test1','test1-handle1'),
-    Struct::MockCompanies.new('test2','test1-handle2'),
-    Struct::MockCompanies.new('test3','test1-handle3'),
-    Struct::MockCompanies.new('test4','test1-handle4')
-  ]
-%>
 
 <h1>Listing companies</h1>
 
@@ -14,7 +5,7 @@
 
 <% @companies.each do |company| %>
   <tr>
-    <td><%= link_to 'select',"/add_company?company_id=#{company.id}", :class => 'btn'%></td>
+    <td><%= link_to 'select',edit_users_company_path(current_user, :company_id => company.id), :class => 'btn'%></td>
     <td><%= company.name %></td>
     <td><%= company.email %></td>
     <td><%= company.phone %></td>

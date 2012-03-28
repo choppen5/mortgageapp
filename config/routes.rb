@@ -1,6 +1,17 @@
 SampleApp::Application.routes.draw do
-  resources :companies
 
+  # PROPER VERSION:
+  namespace :users do
+    resources :companies
+    resources :cases
+  end
+  resources :companies
+  resources :cases
+  namespace :cases do
+    resources :activities
+  end
+
+  # LEGACY PROTOTYPE CODE:
   resources :users do
     member do
       get :following, :followers
@@ -10,7 +21,7 @@ SampleApp::Application.routes.draw do
   resources :microposts, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
       
-  root to: 'static_pages#home'
+  root to: 'static_pages#dashboard'
 
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'

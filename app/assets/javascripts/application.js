@@ -13,6 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require_tree .
 //= require jquery.purr
 //= require best_in_place
+//= require jquery-1.7.2
+//= require underscore-1.3.1
+//= require util
+//= require_tree .

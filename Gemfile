@@ -12,6 +12,7 @@ gem 'best_in_place'
 gem 'haml'
 
 group :development, :test do
+  gem 'awesome_print'
   gem 'sqlite3', '1.3.5'
   gem 'rspec-rails', '2.8.1'
   gem 'foreman'

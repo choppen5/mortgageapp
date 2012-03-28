@@ -1,4 +1,5 @@
 class CompaniesController < ApplicationController
+
   # GET /companies
   # GET /companies.json
   def index
@@ -16,7 +17,7 @@ class CompaniesController < ApplicationController
     @company = Company.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html # show.html.haml
       format.json { render json: @company }
     end
   end

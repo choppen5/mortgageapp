@@ -1,5 +1,5 @@
 var app = {
-  initialize: function() {
+  init: function() {
     $('.company').click(function(){
       var cid = $(this).attr('data-company-id');
       $('.hidden').html("<input type='hidden' name='micropost[company_id]' value='" + cid + "' />");
@@ -10,4 +10,4 @@ var app = {
   }
 };
 
-$(app.initialize);
+$(app.init);

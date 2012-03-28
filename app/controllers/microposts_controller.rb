@@ -3,9 +3,10 @@ class MicropostsController < ApplicationController
   before_filter :correct_user,   only: :destroy
 
   def create
+    raise params[:micropost].inspect
     @micropost = current_user.microposts.build({
       :content => params[:micropost][:content],
-      :content => params[:micropost][:company_id]
+      :company_id => params[:micropost][:company_id]
     })
     if @micropost.save
       flash[:success] = "Micropost created!"

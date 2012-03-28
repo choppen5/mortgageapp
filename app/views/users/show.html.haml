@@ -1,0 +1,18 @@
+- provide(:title, @user.name)
+.row
+  %aside.span4
+    %section
+      %h1
+        = gravatar_for @user
+        =@user.name
+    %section
+    %h3 Story
+    = best_in_place(@user, :story, type: :textarea, :display_with => :simple_format)
+  .span8
+    = render 'follow_form' if signed_in?
+    - if @user.microposts.any?
+      %h3
+        = "Microposts (#{@user.microposts.count})"
+      %ol.microposts
+        = render @microposts
+      = will_paginate @microposts

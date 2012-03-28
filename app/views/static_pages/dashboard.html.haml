@@ -1,0 +1,96 @@
+- if current_user.cases.present?
+  -current_company = current_user.cases.first.company
+- else
+  -current_company = nil
+- current_problem = current_user.cases.first
+
+:css
+  .problem-text {
+    height:350px;
+  }
+  .issue-text {
+    height:70px;
+  }
+  .small {
+    font-size: 11px;
+    color:#aaa;
+  }
+  .choose-activity-header {
+    margin-bottom:7px;
+  }
+
+%section#create-a-problem
+  .row
+    .span4
+      - if current_user.cases.present?
+        -current_user.cases.each do |problem|
+          .user-case{'data-case-id' => problem.id}
+            %p
+              =problem.company.name
+              \--
+              =link_to 'show', '#', :class => 'js-show'
+              =link_to 'del', '#', :class => 'js-delete'
+            %p
+              =simple_format problem.description
+
+      %hr
+      =form_for current_user, :url => users_case_path(current_user) do |user_form|
+        = user_form.fields_for :case do |case_form|
+
+          - if @companies_to_post_to.present?
+            %label
+              Create a case with
+              =@companies_to_post_to.first.name
+              =case_form.hidden_field(:company_id, :value => @companies_to_post_to.first.id)
+              =case_form.text_field(:status, :class => 'span4')
+              =case_form.text_area(:description, :class => 'case-text span4')
+              =case_form.submit('Save',:class => 'btn btn-primary')
+              =link_to "Choose Another Company",edit_users_company_path(current_user, :delete => true),:class => 'btn btn-danger'
+          - else
+            %label Who is your mortgage with?
+            = link_to 'Click here to add a company',companies_path, :class => 'btn btn-primary'
+    .span6
+      -if current_company.present?
+        .company-info
+          %h3
+            = current_company.name
+            %span.small=current_company.phone
+
+        .case-entry
+          =form_for current_problem, :url => cases_activity_path(current_problem) do |problem_form|
+            = problem_form.fields_for :activity do |activity_form|
+              .row.choose-activity-header
+                .span2
+                  %label
+                    Create an activity:
+                .span4
+                  .btn-group
+                    .btn.btn-info.call-button Call
+                    .btn.email-button Email
+                    .btn.fax-button Fax
+              =activity_form.hidden_field(:activity_type, :value => 'call')
+              =activity_form.text_area(:content, :class => 'issue-text span6')
+              .row
+                .span2
+                  %label
+                    How'd it go?
+                .span4
+                  .btn-group
+                    .btn.btn-info.call-button Good
+                    .btn.email-button So-So
+                    .btn.fax-button I'm Upset
+              =activity_form.submit('Save',:class => 'btn btn-primary')
+
+        %hr
+
+        .case-history
+          -current_problem.activities.each do |activity|
+            %p
+              =activity.activity_type
+              \::
+              =activity.created_at
+            %p
+              =activity.content
+    -#.span2
+    -#  Summary
+
